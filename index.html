@@ -7,6 +7,32 @@
     <title>Tic tac toe</title>
   </head>
   <body>
+    <!-- <div class="pickContainer">
+      <h1 class="pickPlayer">Pick the player</h1>
+      <div class="leftSide">
+        <img src="player1.jpg" alt="GTA player img" />
+        <p>player1 name:</p>
+        <input type="text" name="p1" id="name" />
+        <input type="image" src="Oicon.webp" />
+        <input type="image" src="Xicon.png" />
+      </div>
+    </div> -->
+    <div id="form">
+      <form action="/">
+        <label for="p1name">First player name:</label><br />
+        <input type="text" id="p1name" name="fname" /><br />
+        <p>for player 1 Pick your char</p>
+        <input type="radio" id="choice" name="choice" value="x" />
+        <label for="age1">x</label><br />
+        <input type="radio" id="choice" name="choice" value="o" />
+        <label for="age1">o</label><br />
+        <label for="p2name">Second player name:</label><br />
+        <input type="text" id="p2name" name="lname" /><br /><br />
+        <input type="submit" value="Submit" id="submit" />
+      </form>
+    </div>
+    <h1 class="turn"></h1>
+    <div class="board"></div>
     <script src="scripts.js"></script>
   </body>
 </html>
