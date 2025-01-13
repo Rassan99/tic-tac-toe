@@ -4,7 +4,6 @@ let GameBoard = (function () {
     [4, 5, 6],
     [7, 8, 9],
   ];
-  // const getBoard = () => board;
 
   return board;
 })();
@@ -122,11 +121,13 @@ function ScreenController() {
   submitBttn.addEventListener("click", func);
   const boardDiv = document.querySelector(".board");
   const playerTurnDiv = document.querySelector(".turn");
+  boardDiv.style.display = "none";
   let choice;
   let p1choice;
   let p1Name;
   let p2choice;
   let p2Name;
+  let game;
   function func() {
     choice = document.getElementsByName("choice");
     for (let i = 0; i < choice.length; i++) {
@@ -138,74 +139,37 @@ function ScreenController() {
     p2Name = document.getElementById("p2name").value;
     p2choice = p1choice === "x" ? "o" : "x";
     document.getElementById("form").remove();
-    console.log(p2choice);
-    return {
-      p1choice,
-      p1Name,
-      p2Name,
-      p2choice,
-    };
+    game = gameController(Player(p1Name, p1choice), Player(p2Name, p2choice));
+    boardDiv.style.display = "grid";
+    const activePlayer = game.getActivePlayer();
+    playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
   }
 
-  const game = gameController(
-    Player(p1Name, p1choice),
-    Player(p2Name, p2choice)
-  );
   const updateScreen = () => {
-    // clear the board
+    const board = GameBoard;
     boardDiv.textContent = "";
 
-    // get the newest version of the board and player turn
-    const board = game.getBoard;
-    const activePlayer = game.getActivePlayer();
-
-    // Display player's turn
-    playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
-
-    // Render board squares
     board.forEach((row) => {
       row.forEach((cell, index) => {
-        // Anything clickable should be a button!!
         const cellButton = document.createElement("button");
         cellButton.classList.add("cell");
-        // Create a data attribute to identify the column
-        // This makes it easier to pass into our `playRound` function
         cellButton.dataset.column = index;
-        // cellButton.textContent = cell.getValue();
+        cellButton.textContent = cell;
         boardDiv.appendChild(cellButton);
       });
     });
   };
 
-  // Add event listener for the board
   function clickHandlerBoard(e) {
-    const selectedColumn = e.target.dataset.column;
-    // Make sure I've clicked a column and not the gaps in between
-    if (!selectedColumn) return;
-
+    const selectedColumn = e.target.textContent;
+    const activePlayer = game.getActivePlayer();
+    playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
     game.playRound(selectedColumn);
     updateScreen();
   }
   boardDiv.addEventListener("click", clickHandlerBoard);
 
-  // Initial render
   updateScreen();
-
-  // We don't need to return anything from this module because everything is encapsulated inside this screen controller.
 }
 
 ScreenController();
-
-// let rass = Player("rass", "x");
-// let ra = Player("ra", "o");
-
-// const game = gameController(rass, ra);
-// game.playRound(1); // X in position 1
-// game.playRound(2); // O in position 2
-// game.playRound(3); // X in position 3
-// game.playRound(5); // O in position 5
-// game.playRound(6); // X in position 6
-// game.playRound(4); // O in position 4
-// game.playRound(7); // X in position 7
-// game.playRound(9); // O in position 9
-// game.playRound(8); // X in position 8
