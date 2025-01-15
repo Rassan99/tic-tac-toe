@@ -8,20 +8,21 @@
   </head>
   <body>
     <div id="form">
-      <form action="/">
+      <form action="/" id="forma">
         <label for="p1name">First player name:</label><br />
-        <input type="text" id="p1name" name="fname" /><br />
+        <input type="text" id="p1name" name="fname" required /><br />
         <p>for player 1 Pick your char</p>
-        <input type="radio" id="choice" name="choice" value="x" />
+        <input type="radio" id="choice" name="choice" value="x" required />
         <label for="age1">x</label><br />
-        <input type="radio" id="choice" name="choice" value="o" />
+        <input type="radio" id="choice" name="choice" value="o" required />
         <label for="age1">o</label><br />
         <label for="p2name">Second player name:</label><br />
-        <input type="text" id="p2name" name="lname" /><br /><br />
+        <input type="text" id="p2name" name="lname" required /><br /><br />
         <input type="submit" value="Submit" id="submit" />
       </form>
     </div>
     <h1 class="turn"></h1>
+    <div class="header"></div>
     <div class="board"></div>
     <script src="scripts.js"></script>
   </body>
