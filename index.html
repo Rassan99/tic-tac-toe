@@ -7,18 +7,41 @@
     <title>Tic tac toe</title>
   </head>
   <body>
-    <div id="form">
+    <div id="format">
+      <div class="head">
+        <h1 id="head">Pick your players!</h1>
+      </div>
       <form action="/" id="forma">
-        <label for="p1name">First player name:</label><br />
-        <input type="text" id="p1name" name="fname" required /><br />
-        <p>for player 1 Pick your char</p>
-        <input type="radio" id="choice" name="choice" value="x" required />
-        <label for="age1">x</label><br />
-        <input type="radio" id="choice" name="choice" value="o" required />
-        <label for="age1">o</label><br />
-        <label for="p2name">Second player name:</label><br />
-        <input type="text" id="p2name" name="lname" required /><br /><br />
-        <input type="submit" value="Submit" id="submit" />
+        <div id="form">
+          <div class="left-side">
+            <img src="img/player1.jpg" alt="GTA character 1" />
+            <label for="p1name">First player name:</label><br />
+            <input type="text" id="p1name" name="fname" required /><br />
+            <p>player 1 Pick your favourite</p>
+            <label for="age1" class="btn">
+              <input
+                type="radio"
+                id="choice"
+                name="choice"
+                value="x"
+                required
+              />
+              x</label
+            ><br />
+            <label for="age1" class="btn">
+              <input type="radio" id="choice" name="choice" value="o" />
+              O</label
+            ><br />
+          </div>
+          <div class="right-side">
+            <img src="img/player2.jpg" alt="GTA character 2" />
+            <label for="p2name">Second player name:</label><br />
+            <input type="text" id="p2name" name="lname" required /><br /><br />
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Submit" id="submit" />
+        </div>
       </form>
     </div>
     <h1 class="turn"></h1>

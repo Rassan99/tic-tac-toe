@@ -44,7 +44,8 @@ function gameController(p1, p2) {
   };
   const playRound = (num) => {
     const headerDiv = document.querySelector(".header");
-    headerDiv.textContent = "";
+    const turnHeader = document.querySelector(".turn");
+
     console.log("length of number =" + number);
     console.log(
       `Putting ${activePlayer.name}'s ${activePlayer.xO} into square ${num}...`
@@ -56,19 +57,15 @@ function gameController(p1, p2) {
       if (checkWins()) {
         number = [];
         GameBoard.resetBoard();
-        const winner = document.createElement("p");
-        winner.id = "winner";
-        winner.textContent = ` ${activePlayer.name}'s ${activePlayer.xO} Won!`;
-        headerDiv.appendChild(winner);
+        turnHeader.textContent = ` ${activePlayer.name}'s ${activePlayer.xO} Won!`;
+        headerDiv.appendChild(turnHeader);
         console.log(` ${activePlayer.name}'s ${activePlayer.xO} Won!`);
       }
       if (number.length == 9) {
         number = [];
         GameBoard.resetBoard();
-        const draw = document.createElement("p");
-        draw.id = "draw";
-        draw.textContent = ` it's a Draw!!`;
-        headerDiv.appendChild(draw);
+        turnHeader.textContent = ` it's a Draw!!`;
+        headerDiv.appendChild(turnHeader);
         console.log(` it's a Draw!`);
       }
       switchPlayer();
@@ -96,7 +93,7 @@ function changeBoard(num, p1) {
   // if (typeof pickedNumber != "number") {
   //   return false;
   // number.includes(pickedNumber) || }
-  if (isNaN(num)) {
+  if (isNaN(pickedNumber)) {
     return false;
   } else {
     GameBoard.getBoard()[result[0]][result[1]] = xO;
@@ -150,8 +147,9 @@ function ScreenController() {
   let p2choice;
   let p2Name;
   let game;
-  function func() {
-    if (form[0].checkValidity()) {
+  function func(event) {
+    event.preventDefault();
+    if (form.checkValidity()) {
       choice = document.getElementsByName("choice");
       for (let i = 0; i < choice.length; i++) {
         if (choice[i].checked) {
@@ -162,7 +160,7 @@ function ScreenController() {
       p1Name = document.getElementById("p1name").value;
       p2Name = document.getElementById("p2name").value;
       p2choice = p1choice === "x" ? "o" : "x";
-      document.getElementById("form").remove();
+      document.getElementById("format").remove();
       game = gameController(Player(p1Name, p1choice), Player(p2Name, p2choice));
       boardDiv.style.display = "grid";
       const activePlayer = game.getActivePlayer();
@@ -177,15 +175,17 @@ function ScreenController() {
       row.forEach((cell, index) => {
         const cellButton = document.createElement("button");
         cellButton.classList.add("cell");
-        cellButton.dataset.column = index;
-        cellButton.textContent = cell;
+        cellButton.dataset.column = cell;
+        if (isNaN(cell)) {
+          cellButton.textContent = cell;
+        }
         boardDiv.appendChild(cellButton);
       });
     });
   };
 
   function clickHandlerBoard(e) {
-    const selectedColumn = parseInt(e.target.textContent, 10);
+    const selectedColumn = parseInt(e.target.dataset.column, 10);
     const activePlayer = game.getActivePlayer();
     playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
     game.playRound(selectedColumn);
